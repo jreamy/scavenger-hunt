@@ -44,7 +44,7 @@ class Hint extends React.Component {
             <div>
                 <p>{this.props.hint}</p>
                 <input type="text" value={this.state.guess} onChange={this.handleChange} />
-                <p>{"decoded: " + this.state.decoded}</p>
+                <p>{this.state.decoded}</p>
             </div>
         )
     }
