@@ -8,7 +8,8 @@ class Hint extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            decoded: props.encoded,
+            display: props.encoded,
+            decoded: false,
             guess: ''
         }
 
@@ -16,25 +17,18 @@ class Hint extends React.Component {
     }
 
     handleChange(event) {
-        console.log(event.target.value.replace(/[^a-z0-9]/gi, '').toLowerCase())
-        console.log(sha256(event.target.value.replace(/[^a-z0-9]/gi, '').toLowerCase()))
-        let pw = sha256(event.target.value.replace(/[^a-z0-9]/gi, '').toLowerCase()).toString().substring(0, 16)
-        console.log("pw:", pw)
+        let pw = sha256(event.target.value.replace(/[^a-z0-9]/gi, '').toLowerCase()).toString()
+        let key = CryptoJS.enc.Utf8.parse(pw.substring(0, 16));
 
-        console.log(this.props.encoded)
-        let key = CryptoJS.enc.Utf8.parse(pw);
-        console.log(CryptoJS.enc.Utf8.stringify(key))
-        console.log(key)
-
-        // console.log(CryptoJS.enc.Utf8.stringify(decrypted))
-        // console.log(decrypted.toString(CryptoJS.enc.Utf8));
         var decrypted = ''
         try {
             decrypted = CryptoJS.AES.decrypt(this.props.encoded, key, {mode:CryptoJS.mode.ECB}).toString(CryptoJS.enc.Utf8)
         } catch (e) {}
 
+        let decoded = sha256(decrypted).toString() === this.props.hash
         this.setState({
-            decoded: decrypted || this.props.encoded,
+            decoded: decoded,
+            display: (decoded && decrypted) || this.props.encoded,
             guess: event.target.value,
         })
     }
@@ -44,7 +38,7 @@ class Hint extends React.Component {
             <div>
                 <p>{this.props.hint}</p>
                 <input type="text" value={this.state.guess} onChange={this.handleChange} />
-                <p>{this.state.decoded}</p>
+                <p>{this.state.display}</p>
             </div>
         )
     }

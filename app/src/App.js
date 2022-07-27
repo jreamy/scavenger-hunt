@@ -9,8 +9,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        { hints.map(({hint, encoded}, idx) => {
-          return <Hint key={"hint_"+idx} hint={hint} encoded={encoded}/> 
+        { hints.map(({hint, encoded, hash}, idx) => {
+          return <Hint key={"hint_"+idx} hint={hint} encoded={encoded} hash={hash}/> 
         })}
       </header>
     </div>

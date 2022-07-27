@@ -31,10 +31,14 @@ for hint in hints:
     cipher = AES.new(key.hexdigest()[:16].encode("utf-8"), AES.MODE_ECB)
     print(Padding.unpad(cipher.decrypt(base64.b64decode(ciphertext)), 16).decode("utf-8"))
     
+    h = hashlib.sha256()
+    h.update(hint["message"].encode("utf-8"))
+
     # store results
     out.append({
         "hint": hint["hint"],
         "encoded": ciphertext.decode("utf8"),
+        "hash": h.hexdigest(),
     })
 
 with open("app/src/encrypted.json", "w") as f:
