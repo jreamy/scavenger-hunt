@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/scavenger-hunt/static/css/main.3dfcd0b9.css",
-    "main.js": "/scavenger-hunt/static/js/main.3879f6d9.js",
+    "main.js": "/scavenger-hunt/static/js/main.8f7f5917.js",
     "static/js/787.c1112931.chunk.js": "/scavenger-hunt/static/js/787.c1112931.chunk.js",
     "index.html": "/scavenger-hunt/index.html",
     "main.3dfcd0b9.css.map": "/scavenger-hunt/static/css/main.3dfcd0b9.css.map",
-    "main.3879f6d9.js.map": "/scavenger-hunt/static/js/main.3879f6d9.js.map",
+    "main.8f7f5917.js.map": "/scavenger-hunt/static/js/main.8f7f5917.js.map",
     "787.c1112931.chunk.js.map": "/scavenger-hunt/static/js/787.c1112931.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.3dfcd0b9.css",
-    "static/js/main.3879f6d9.js"
+    "static/js/main.8f7f5917.js"
   ]
 }
