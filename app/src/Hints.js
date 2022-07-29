@@ -1,47 +1,64 @@
 
 import React from "react";
-import sha256 from 'crypto-js/sha256';
-import CryptoJS from 'crypto-js';
+import Hint from './Hint.js'
 
 
-class Hint extends React.Component {
+class Hints extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             display: props.encoded,
-            decoded: false,
-            guess: ''
+            guess: '',
+            hints: props.hints.map(hint => new Hint(hint))
         }
 
         this.handleChange = this.handleChange.bind(this);
     }
 
     handleChange(event) {
-        let pw = sha256(event.target.value.replace(/[^a-z0-9]/gi, '').toLowerCase()).toString()
-        let key = CryptoJS.enc.Utf8.parse(pw.substring(0, 16));
-
-        var decrypted = ''
-        try {
-            decrypted = CryptoJS.AES.decrypt(this.props.encoded, key, {mode:CryptoJS.mode.ECB}).toString(CryptoJS.enc.Utf8)
-        } catch (e) {}
-
-        let decoded = sha256(decrypted).toString() === this.props.hash
         this.setState({
-            decoded: decoded,
-            display: (decoded && decrypted) || this.props.encoded,
-            guess: event.target.value,
+            guess: event.target.value
+        })
+        this.state.hints.forEach(hint => {
+            if (hint.attempt(event.target.value)) {
+                this.setState({
+                    hints: this.state.hints,
+                    guess: '',
+                })
+            }
         })
     }
 
     render() {
+        var header = []
+        var final = null
+        var first = true
+        for (let i = 0; i < this.state.hints.length; i++) {
+            let hint = this.state.hints.at(i)
+            if (hint.decoded()) {
+                if (!first) {
+                    header = header.concat(<hr className="rounded" key={hint.props.encoded + "_break"}></hr>)
+                }
+                header = header.concat(hint.header())
+                first = false
+            } else if (!final) {
+                final = hint
+            }
+        }
+        if (final) {
+            if (!first) {
+                header = header.concat(<hr className="rounded" key={final.encoded + "_break"}></hr>)
+            }
+            header = header.concat(final.header())
+        }
+
         return (
             <div>
-                <p>{this.props.hint}</p>
-                <input type="text" value={this.state.guess} onChange={this.handleChange} />
-                <p>{this.state.display}</p>
+                {header}
+                <input key="entry" type="text" value={this.state.guess} onChange={this.handleChange} />
             </div>
         )
     }
 }
 
-export default Hint;
+export default Hints;

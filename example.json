@@ -3,5 +3,17 @@
     "hint": "Type Hello",
     "password": "Hello",
     "message": "Secret Message Revealed"
+  }, {
+    "hint": "Second Message",
+    "password": "two",
+    "message": "Another Message"
+  }, {
+    "hint": "",
+    "password": "nothing",
+    "message": "Had no hint..."
+  }, {
+    "hint": "",
+    "password": "Other",
+    "message": "Had no hint..."
   }
 ]
