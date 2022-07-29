@@ -21,6 +21,12 @@ p.revealed-hint {
 p.revealed-message {
   font-size: calc(4px + 2vmin);
   color: rgba(255, 255, 255, 0.75);
+  margin: auto;
+  max-width: 50%;
+}
+
+hr {
+  max-width: 60%;
 }
 
 input {
