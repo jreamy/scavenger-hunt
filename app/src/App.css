@@ -13,6 +13,11 @@
   color: white;
 }
 
+p.hint {
+  max-width: 60%;
+  margin: auto;
+}
+
 p.revealed-hint {
   font-size: calc(4px + 2vmin);
   color: rgba(255, 255, 255, 0.25);

@@ -18,7 +18,7 @@ class Hint {
             </section>
         } else if (this.props.hint) {
             return <section key={this.props.encoded}>
-                <p>{this.props.hint}</p>
+                <p className='hint'>{this.props.hint}</p>
             </section>
         } else {
             return <section key={this.props.encoded}></section>
